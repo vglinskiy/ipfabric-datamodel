@@ -1,0 +1,79 @@
+module ipfabric-ip-interfaces {
+    yang-version "1.1";
+    
+    namespace "https://someurl.com/ipfabric-ip-interfaces.yang";
+    
+    prefix "ipf-ip";
+    
+    import ipfabric-types { prefix "ipf-types"; }
+    
+    description
+      "This model defines data for configuring interfaces
+      in IP CLOS fabric";
+    
+    revision "2018-05-04" {
+      description
+        "First revision";
+      reference "1.0.0";
+    }
+    
+    revision "2018-05-07" {
+      description
+        "Moved type definitions to separate file";
+      reference "1.0.0";
+    }
+    
+    grouping ip-addresses-top {
+      container ipv4 {
+        list addresses {
+          key "ip";
+
+          leaf ip {
+            type ipf-types:ipv4-address;
+          }
+
+          leaf prefix-length {
+            type uint8 {
+              range 1..32;
+            }
+          }          
+        }
+      }
+    }
+    
+    grouping subinterfaces-top {
+      list subinterfaces {
+        description "Subinterface";
+        key "index";
+        
+        leaf index {
+          type uint16;
+        }
+        uses ip-addresses-top;
+      }
+    }
+    
+    
+    container interfaces {
+      list interface {
+        
+        key "name";
+        
+        leaf name {
+           type ipf-types:intfname;
+        }
+        
+        leaf type {
+          type ipf-types:inttype;
+        }
+        
+        leaf mtu {
+          type uint16 {
+            range 1450..9200;
+          }  
+        }
+        uses "ip-addresses-top";
+      }
+//      uses subinterfaces-top;
+    }
+}

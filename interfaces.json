@@ -1,0 +1,19 @@
+{
+  "ipfabric-ip-interfaces:interfaces": {
+    "interface": [
+      {
+        "ipv4": {
+          "addresses": [
+            {
+              "ip": "192.168.10.10", 
+              "prefix-length": 31
+            }
+          ]
+        }, 
+        "mtu": 1500, 
+        "name": "eth1/1", 
+        "type": "ethernetCsmacd"
+      }
+    ]
+  }
+}
