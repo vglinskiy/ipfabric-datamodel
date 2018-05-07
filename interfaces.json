@@ -2,6 +2,18 @@
   "ipfabric-ip-interfaces:interfaces": {
     "interface": [
       {
+        "ipfabric-aggr:aggregation": {
+          "aggregation-id": 10, 
+          "lag-type": "LACP", 
+          "members": [
+            {
+              "name": "eth1/10"
+            }, 
+            {
+              "name": "eth1/20"
+            }
+          ]
+        }, 
         "ipv4": {
           "addresses": [
             {

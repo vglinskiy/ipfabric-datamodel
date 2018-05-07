@@ -8,13 +8,13 @@ ipfabric-ip-interfaces:interfaces:
         addresses:
          - ip: 192.168.10.10
            prefix-length: 31
-      aggregation:
+      ipfabric-aggr:aggregation:
         lag-type: LACP
         aggregation-id: 10
         members:
-            - eth1/10
-            - eth1/20
-      lacp:
+            - name: eth1/10
+            - name: eth1/20
+      ipfabric-lacp:
         interval: SLOW
         type: ACTIVE
 

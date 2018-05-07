@@ -1,0 +1,44 @@
+module ipfabric-aggr {
+    yang-version "1.1";
+    
+    namespace "https://someurl.com/ipfabric-aggr.yang";
+    
+    prefix "ipf-aggr";
+    
+    import ipfabric-types { prefix "ipf-types"; }
+    import ipfabric-ip-interfaces { prefix "ipf-ip"; }
+    
+    description
+      "This module contains model for interface aggregation";
+    
+    revision "2018-05-07" {
+      description
+        "First revision";
+      reference "1.0.0";
+    }
+    
+    grouping aggregation-top {
+      container aggregation {
+        
+        leaf aggregation-id {
+          type uint8;
+        }
+        
+        leaf lag-type {
+          type ipf-types:lag-type;
+        }
+        
+        list members {
+           key  "name";
+           leaf name {
+             type string;
+           }  
+        }
+      }
+    }
+    
+    augment "/ipf-ip:interfaces/ipf-ip:interface" {
+      when "/ipf-ip:interfaces/ipf-ip:interface/ipf-ip:name/ipf-ip:type == 'ieee8023adLag'";
+      uses aggregation-top;
+    }
+}

@@ -10,19 +10,19 @@ module ipfabric-ip-interfaces {
     description
       "This model defines data for configuring interfaces
       in IP CLOS fabric";
-    
-    revision "2018-05-04" {
-      description
-        "First revision";
-      reference "1.0.0";
-    }
-    
+      
     revision "2018-05-07" {
       description
         "Moved type definitions to separate file";
       reference "1.0.0";
     }
-    
+
+    revision "2018-05-04" {
+      description
+        "First revision";
+      reference "1.0.0";
+    }
+        
     grouping ip-addresses-top {
       container ipv4 {
         list addresses {
@@ -33,9 +33,7 @@ module ipfabric-ip-interfaces {
           }
 
           leaf prefix-length {
-            type uint8 {
-              range 1..32;
-            }
+            type ipf-types:ipv4-prefix;
           }          
         }
       }
@@ -65,6 +63,7 @@ module ipfabric-ip-interfaces {
         
         leaf type {
           type ipf-types:inttype;
+          mandatory true;
         }
         
         leaf mtu {
