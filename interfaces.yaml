@@ -8,13 +8,20 @@ ipfabric-ip-interfaces:interfaces:
         addresses:
          - ip: 192.168.10.10
            prefix-length: 31
+    - name: po10
+      type: ieee8023adLag
+      mtu: 1500
+      ipv4:
+        addresses:
+         - ip: 172.16.10.10
+           prefix-length: 31
       ipfabric-aggr:aggregation:
         lag-type: LACP
         aggregation-id: 10
         members:
             - name: eth1/10
             - name: eth1/20
-      ipfabric-lacp:
+      ipfabric-lacp:lacp:
         interval: SLOW
-        type: ACTIVE
+        lacp-mode: ACTIVE
 

@@ -2,6 +2,19 @@
   "ipfabric-ip-interfaces:interfaces": {
     "interface": [
       {
+        "ipv4": {
+          "addresses": [
+            {
+              "ip": "192.168.10.10", 
+              "prefix-length": 31
+            }
+          ]
+        }, 
+        "mtu": 1500, 
+        "name": "eth1/1", 
+        "type": "ethernetCsmacd"
+      }, 
+      {
         "ipfabric-aggr:aggregation": {
           "aggregation-id": 10, 
           "lag-type": "LACP", 
@@ -14,17 +27,21 @@
             }
           ]
         }, 
+        "ipfabric-lacp:lacp": {
+          "interval": "SLOW", 
+          "lacp-mode": "ACTIVE"
+        }, 
         "ipv4": {
           "addresses": [
             {
-              "ip": "192.168.10.10", 
+              "ip": "172.16.10.10", 
               "prefix-length": 31
             }
           ]
         }, 
         "mtu": 1500, 
-        "name": "eth1/1", 
-        "type": "ethernetCsmacd"
+        "name": "po10", 
+        "type": "ieee8023adLag"
       }
     ]
   }

@@ -1,0 +1,68 @@
+module ipfabric-lacp {
+    yang-version "1.1";
+    
+    namespace "https://someurl.com/ipfabric-lacp.yang";
+    
+    prefix "ipf-lacp";
+    
+//    import ipfabric-types { prefix "ipf-types"; }
+    import ipfabric-ip-interfaces { prefix "ipf-ip"; }
+    
+    description
+      "This module contains model for LACP configuration";
+    
+    revision "2018-05-08" {
+      description
+        "First revision";
+      reference "1.0.0";
+    }
+    
+    typedef lacp-intrv {
+      type enumeration {
+        enum SLOW {
+          description
+             "30-second LACP PDU interval";
+        }
+        
+        enum FAST {
+          description
+             "1-second LACP PDU interval";
+        }
+        
+      }
+    }
+
+    typedef lacp-mode {
+      type enumeration {
+        enum ACTIVE {
+          description
+             "port initiates negotiations with remote ports by sending LACP packets";
+        }
+        
+        enum PASSIVE {
+          description
+             "port responds to LACP packets it receives but does not initiate LACP negotiation";
+        }
+        
+      }
+    }
+    
+    grouping lacp-top {
+      container lacp {
+        
+        leaf interval {
+          type lacp-intrv;
+        }
+        
+        leaf lacp-mode {
+          type lacp-mode;
+        }
+        
+      }
+    }
+    
+    augment "/ipf-ip:interfaces/ipf-ip:interface" {
+      when "/ipf-ip:interfaces/ipf-ip:interface/ipf-ip:name/ipf-ip:type == 'ieee8023adLag'";
+      uses lacp-top;
+    }
+}

@@ -1,0 +1,19 @@
+module ipfabric-aggr {
+    yang-version "1.1";
+    
+    namespace "https://someurl.com/ipfabric-bgp.yang";
+    
+    prefix "ipf-bgp";
+    
+    import ipfabric-types { prefix "ipf-types"; }
+    
+    description
+      "This module contains model for BGP configuration";
+    
+    revision "2018-05-07" {
+      description
+        "First revision";
+      reference "1.0.0";
+    }
+    
+}
