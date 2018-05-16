@@ -1,4 +1,4 @@
-module ipfabric-aggr {
+module ipfabric-bgp {
     yang-version "1.1";
     
     namespace "https://someurl.com/ipfabric-bgp.yang";
@@ -6,7 +6,7 @@ module ipfabric-aggr {
     prefix "ipf-bgp";
     
     import ipfabric-types { prefix "ipf-types"; }
-    
+    import ietf-inet-types { prefix "inet"; }
     description
       "This module contains model for BGP configuration";
     
@@ -14,6 +14,111 @@ module ipfabric-aggr {
       description
         "First revision";
       reference "1.0.0";
+    }
+    
+    leaf peer-ip {
+      type inet:ipv4-address;
+    }
+    
+    grouping bgppeer-grouping-top {
+      leaf asn {
+        type inet:as-number;
+        description "BGP Autonomus System Number"; 
+      }
+      
+      leaf ibgp {
+        type boolean;
+        description "Is this iBGP session?";
+      }
+      
+      leaf route-reflector-client {
+        type boolean;
+        description "Is this peer router reflector client?";
+        when "ibgp == 'True'";
+      }
+      
+      leaf originate-default {
+        type boolean;
+        description
+          "Originate defult route to this neigbor True/False";
+      }
+      
+      leaf export-policy {
+        type string;
+        description
+          "Name of the export policy that defines what to advertise to the neighbor";
+      }
+      
+      leaf import-policy {
+        type string;
+        description
+          "Name of the import policy that defines what to accept from the neighbor";
+      }
+    }
+    
+    grouping policy-grouping-top {
+      leaf direct {
+         type string;
+         description
+           "policy name to redistribute directly connected routes";
+      }
+      
+      leaf ospf {
+          type string;
+          description
+            "policy name to redistribute ospf routes";
+      }
+      
+      leaf static {
+           type string;
+           description
+              "policy name to redistribute static routes";
+      }
+      
+      leaf network {
+           type inet:ipv4-prefix;
+           description
+              "network statement";
+      }
+    }
+    container bgp {
+       container global {
+          leaf router-id {
+             type inet:ipv4-address;
+             description
+                "BGP router id";
+          }
+          
+          leaf asn {
+             type inet:as-number;
+             description
+                "BGP Autonomous System Number";
+             mandatory true;
+          }
+         
+          container ipv4-unicast {
+             container export-policy {
+               uses policy-grouping-top;
+             }
+          }
+       }
+    
+       container neighbors {
+         list neighbor {
+            key "peer-ip";
+            description
+               "List of BGP peers";
+            leaf peer-ip {
+              type leafref {
+                path /peer-ip;
+              }
+            }
+            
+            container config {
+              uses bgppeer-grouping-top;
+            }
+         }
+       }
     }
     
 }

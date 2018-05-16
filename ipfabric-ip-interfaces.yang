@@ -33,7 +33,10 @@ module ipfabric-ip-interfaces {
           }
 
           leaf prefix-length {
-            type ipf-types:ipv4-prefix;
+//            type ipf-types:ipv4-prefix;
+            type uint8 {
+              range "1..32";
+            }
           }          
         }
       }
