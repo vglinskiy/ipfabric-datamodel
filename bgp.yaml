@@ -8,7 +8,9 @@ ipfabric-bgp:bgp:
                 direct: DIRECT-MAP
                 ospf: OSPF-MAP
                 static: STATIC-MAP
-                network: 192.168.0.0/24
+                network:
+                    - 192.168.0.0/24
+                    - 192.169.1.0/24
     neighbors:
         neighbor:
             - peer-ip: 192.0.2.10

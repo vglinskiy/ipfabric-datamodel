@@ -75,7 +75,7 @@ module ipfabric-bgp {
               "policy name to redistribute static routes";
       }
       
-      leaf network {
+      leaf-list network {
            type inet:ipv4-prefix;
            description
               "network statement";
